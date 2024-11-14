@@ -1,49 +1,52 @@
 ---
-const codeExample = `// Protected route example
-import { supabase } from '../lib/supabase';
-
-// Check authentication in your routes
-async function checkAuth() {
-  const session = await supabase.auth.getSession();
-
-  if (!session.data.session) {
-    // Redirect to login if not authenticated
-    window.location.href = '/login';
-  }
-
-  // User is authenticated
-  const { user } = session.data.session;
-}`;
-
 const features = [
   "One-line authentication setup",
   "Automatic session management",
-  "Built-in security features"
+  "Built-in security features",
+  "TypeScript support"
 ];
+
+const codeExample = `// Initialize authentication
+const auth = new AuthFlow();
+
+// Protected route example
+export const GET: APIRoute = async ({ request }) => {
+  const session = await auth.validateSession(request);
+
+  if (!session) {
+    return new Response(null, { status: 401 });
+  }
+
+  return new Response(JSON.stringify({
+    user: session.user
+  }));
+};`;
 ---
 
-<section class="py-16 sm:py-24 bg-gray-50">
+<section class="py-16 sm:py-24 bg-gray-50 dark:bg-gray-800">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12">Simple Integration</h2>
+    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white">Simple Integration</h2>
     <div class="grid md:grid-cols-2 gap-12 items-center">
       <div>
-        <h3 class="text-2xl font-semibold mb-4">Easy to Implement</h3>
-        <p class="text-gray-600 mb-6">
+        <h3 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Easy to Implement</h3>
+        <p class="text-gray-600 dark:text-gray-400 mb-6">
           Our authentication system is designed to be developer-friendly. Just a few lines of code to get started with secure authentication.
         </p>
         <ul class="space-y-4">
           {features.map(feature => (
             <li class="flex items-center space-x-3">
-              <svg class="w-5 h-5 text-[#7DE261]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg class="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
               </svg>
-              <span>{feature}</span>
+              <span class="text-gray-700 dark:text-gray-300">{feature}</span>
             </li>
           ))}
         </ul>
       </div>
-      <div class="bg-white rounded-xl shadow-lg p-6">
-        <pre class="text-sm overflow-x-auto font-mono bg-gray-50 p-4 rounded-lg"><code>{codeExample}</code></pre>
+      <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
+        <pre class="text-sm overflow-x-auto font-mono bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+          <code class="text-gray-800 dark:text-gray-200">{codeExample}</code>
+        </pre>
       </div>
     </div>
   </div>

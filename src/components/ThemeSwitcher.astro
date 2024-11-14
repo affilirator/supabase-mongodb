@@ -1,0 +1,98 @@
+---
+---
+
+<div class="relative inline-block">
+  <button
+    id="theme-toggle"
+    class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+    aria-label="Theme switcher"
+  >
+    <!-- Sun icon -->
+    <svg
+      id="light-icon"
+      class="w-5 h-5 hidden dark:block"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+      />
+    </svg>
+    <!-- Moon icon -->
+    <svg
+      id="dark-icon"
+      class="w-5 h-5 block dark:hidden"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+      />
+    </svg>
+  </button>
+  <div
+    id="theme-menu"
+    class="hidden absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 z-50"
+  >
+    <div class="py-1" role="menu" aria-orientation="vertical">
+      <button
+        class="theme-option w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+        data-theme="light"
+        role="menuitem"
+      >
+        Light
+      </button>
+      <button
+        class="theme-option w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+        data-theme="dark"
+        role="menuitem"
+      >
+        Dark
+      </button>
+      <button
+        class="theme-option w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+        data-theme="system"
+        role="menuitem"
+      >
+        System
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { themeStore } from '../stores/theme';
+
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeMenu = document.getElementById('theme-menu');
+  const themeOptions = document.querySelectorAll('.theme-option');
+
+  themeToggle?.addEventListener('click', () => {
+    themeMenu?.classList.toggle('hidden');
+  });
+
+  themeOptions.forEach((option) => {
+    option.addEventListener('click', () => {
+      const theme = option.getAttribute('data-theme');
+      if (theme) {
+        themeStore.setTheme(theme as 'light' | 'dark' | 'system');
+        themeMenu?.classList.add('hidden');
+      }
+    });
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (event) => {
+    if (!themeToggle?.contains(event.target as Node) && !themeMenu?.contains(event.target as Node)) {
+      themeMenu?.classList.add('hidden');
+    }
+  });
+</script>

@@ -1,93 +1,207 @@
 ---
-const currentPath = Astro.url.pathname;
+import ThemeSwitcher from './ThemeSwitcher.astro';
+const { className } = Astro.props;
 ---
 
-<nav class="fixed w-full bg-white/90 backdrop-blur-sm shadow-sm z-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between h-16">
-      <div class="flex items-center">
-        <a href="/" class="flex items-center space-x-2">
-          <div class="w-8 h-8 bg-gradient-to-r from-[#FF5C35] to-[#D74697] rounded-lg"></div>
-          <span class="text-xl font-bold bg-gradient-to-r from-[#FF5C35] to-[#D74697] text-transparent bg-clip-text">
-            AuthFlow
-          </span>
-        </a>
-      </div>
-      <div class="hidden sm:flex sm:items-center sm:space-x-8">
-        <a 
-          href="/" 
-          class={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-            currentPath === "/" 
-              ? "text-[#FF5C35]" 
-              : "text-gray-600 hover:text-[#FF5C35]"
-          }`}
-        >
-          Home
-        </a>
-        <a 
-          href="/login" 
-          class={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-            currentPath === "/login" 
-              ? "text-[#FF5C35]" 
-              : "text-gray-600 hover:text-[#FF5C35]"
-          }`}
-        >
-          Login
-        </a>
-        <a 
-          href="/register" 
-          class="px-4 py-2 rounded-md text-sm font-medium text-white bg-gradient-to-r from-[#FF5C35] to-[#D74697] hover:opacity-90 transition-opacity"
-        >
-          Get Started
-        </a>
-      </div>
-      <div class="flex items-center sm:hidden">
-        <button id="mobile-menu-button" class="text-gray-600 hover:text-[#FF5C35]">
-          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
-      </div>
-    </div>
-  </div>
-  
-  <div id="mobile-menu" class="hidden sm:hidden bg-white/90 backdrop-blur-sm">
-    <div class="px-2 pt-2 pb-3 space-y-1">
-      <a 
-        href="/" 
-        class={`block px-3 py-2 rounded-md text-base font-medium ${
-          currentPath === "/" 
-            ? "text-[#FF5C35]" 
-            : "text-gray-600 hover:text-[#FF5C35]"
-        }`}
+<nav class={`px-4 sm:px-6 py-4 transition-colors duration-200 ${className || ''}`}>
+  <div class="container mx-auto flex justify-between items-center relative">
+    <!-- Logo -->
+    <a
+      href="/"
+      class="text-2xl font-bold bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text hover:opacity-80 transition-opacity"
+    >
+      AuthFlow
+    </a>
+
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex items-center space-x-6">
+      <a
+        href="/docs"
+        class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
       >
-        Home
+        Docs
       </a>
-      <a 
-        href="/login" 
-        class={`block px-3 py-2 rounded-md text-base font-medium ${
-          currentPath === "/login" 
-            ? "text-[#FF5C35]" 
-            : "text-gray-600 hover:text-[#FF5C35]"
-        }`}
+      <a
+        href="/pricing"
+        class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
       >
-        Login
+        Pricing
       </a>
-      <a 
-        href="/register" 
-        class="block px-3 py-2 rounded-md text-base font-medium text-white bg-gradient-to-r from-[#FF5C35] to-[#D74697]"
+      <div class="h-5 w-px bg-gray-200 dark:bg-gray-700"></div>
+      <ThemeSwitcher />
+      <a
+        href="/login"
+        class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium"
+      >
+        Sign in
+      </a>
+      <a
+        href="/register"
+        class="bg-gradient-to-r from-primary to-secondary text-white px-4 py-2 rounded-lg hover:opacity-90 transition-all duration-200 font-medium shadow-md hover:shadow-lg"
       >
         Get Started
       </a>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <div class="flex items-center space-x-4 md:hidden">
+      <ThemeSwitcher />
+      <button
+        id="mobile-menu-button"
+        class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+        aria-label="Menu"
+      >
+        <svg
+          class="w-6 h-6 text-gray-600 dark:text-gray-300"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div
+    id="mobile-menu"
+    class="hidden fixed inset-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm md:hidden"
+    aria-hidden="true"
+  >
+    <div class="flex flex-col min-h-screen">
+      <!-- Mobile Menu Header -->
+      <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+        <a
+          href="/"
+          class="text-2xl font-bold bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text"
+        >
+          AuthFlow
+        </a>
+        <button
+          id="mobile-menu-close"
+          class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+          aria-label="Close menu"
+        >
+          <svg
+            class="w-6 h-6 text-gray-600 dark:text-gray-300"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Menu Content -->
+      <div class="flex-1 overflow-y-auto">
+        <div class="p-4 space-y-6">
+          <!-- Navigation Links -->
+          <div class="space-y-4">
+            <a
+              href="/docs"
+              class="block text-lg font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
+            >
+              Docs
+            </a>
+            <a
+              href="/pricing"
+              class="block text-lg font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
+            >
+              Pricing
+            </a>
+          </div>
+
+          <!-- Auth Buttons -->
+          <div class="space-y-4 pt-6 border-t border-gray-200 dark:border-gray-700">
+            <a
+              href="/login"
+              class="block w-full text-center py-3 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium"
+            >
+              Sign in
+            </a>
+            <a
+              href="/register"
+              class="block w-full text-center py-3 px-4 rounded-lg bg-gradient-to-r from-primary to-secondary text-white font-medium hover:opacity-90 transition-opacity"
+            >
+              Get Started
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
 
 <script>
   const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenuClose = document.getElementById('mobile-menu-close');
   const mobileMenu = document.getElementById('mobile-menu');
 
-  mobileMenuButton?.addEventListener('click', () => {
+  function toggleMobileMenu() {
     mobileMenu?.classList.toggle('hidden');
+    document.body.classList.toggle('overflow-hidden');
+  }
+
+  function closeMobileMenu() {
+    mobileMenu?.classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+  }
+
+  mobileMenuButton?.addEventListener('click', toggleMobileMenu);
+  mobileMenuClose?.addEventListener('click', closeMobileMenu);
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement;
+    if (
+      !mobileMenu?.classList.contains('hidden') &&
+      !mobileMenuButton?.contains(target) &&
+      !mobileMenu?.contains(target)
+    ) {
+      closeMobileMenu();
+    }
+  });
+
+  // Close menu on escape key
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !mobileMenu?.classList.contains('hidden')) {
+      closeMobileMenu();
+    }
+  });
+
+  // Handle resize
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768 && !mobileMenu?.classList.contains('hidden')) {
+      closeMobileMenu();
+    }
   });
 </script>
+
+<style>
+  /* Prevent content shift when scrollbar disappears */
+  body.overflow-hidden {
+    padding-right: var(--scrollbar-width, 0px);
+  }
+
+  /* Smooth mobile menu animation */
+  #mobile-menu {
+    transition: opacity 0.2s ease-in-out;
+    opacity: 0;
+  }
+
+  #mobile-menu:not(.hidden) {
+    opacity: 1;
+  }
+</style>

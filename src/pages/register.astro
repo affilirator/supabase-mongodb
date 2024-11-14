@@ -5,11 +5,11 @@ import Navigation from '../components/Navigation.astro';
 ---
 
 <Layout title="Register">
-  <Navigation className="absolute top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm" />
+  <Navigation className="absolute top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm" />
   <main class="min-h-screen flex">
     <!-- Visual Section -->
     <div class="hidden lg:block lg:w-1/2 bg-gradient-to-br from-secondary to-primary relative overflow-hidden">
-      <div class="absolute inset-0 bg-black/10"></div>
+      <div class="absolute inset-0 bg-black/10 dark:bg-black/40"></div>
       <div class="absolute inset-0 flex items-center justify-center p-16">
         <div class="text-white text-center">
           <h2 class="text-4xl font-bold mb-4">Start Your Journey</h2>
@@ -20,14 +20,22 @@ import Navigation from '../components/Navigation.astro';
     </div>
 
     <!-- Form Section -->
-    <div class="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-16 pt-24">
+    <div class="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-16 pt-24 bg-white dark:bg-gray-900">
       <div class="w-full max-w-md">
         <div class="text-center mb-8">
-          <h1 class="text-3xl font-bold mb-2">Create an Account</h1>
-          <p class="text-gray-600">Join our community of developers</p>
+          <h1 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white">Create an Account</h1>
+          <p class="text-gray-600 dark:text-gray-400">Join our community of developers</p>
         </div>
         <AuthForm type="register" />
       </div>
     </div>
   </main>
 </Layout>
+
+<script>
+  import { themeStore } from '../stores/theme';
+  // Initialize theme on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    themeStore.getCurrentTheme();
+  });
+</script>

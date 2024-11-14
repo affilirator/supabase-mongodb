@@ -21,19 +21,31 @@ const features = [
 ];
 ---
 
-<section id="features" class="py-16 sm:py-24">
+<section class="py-16 sm:py-24 bg-white dark:bg-gray-900">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12">How It Works</h2>
+    <div class="text-center mb-12">
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        Everything You Need
+      </h2>
+      <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+        Built with modern technologies and best practices in mind
+      </p>
+    </div>
+
     <div class="grid md:grid-cols-3 gap-8">
       {features.map(feature => (
-        <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
-          <div class={`w-12 h-12 bg-[#${feature.color}]/10 rounded-lg flex items-center justify-center mb-4`}>
-            <svg class={`w-6 h-6 text-[#${feature.color}]`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div class="p-6 rounded-xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-shadow">
+          <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10 dark:from-primary/20 dark:to-secondary/20 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-[#{feature.color}]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={feature.icon}/>
             </svg>
           </div>
-          <h3 class="text-xl font-semibold mb-2">{feature.title}</h3>
-          <p class="text-gray-600">{feature.description}</p>
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            {feature.title}
+          </h3>
+          <p class="text-gray-600 dark:text-gray-400">
+            {feature.description}
+          </p>
         </div>
       ))}
     </div>
