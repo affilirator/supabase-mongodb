@@ -1,8 +1,33 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import AuthForm from '../components/AuthForm.astro';
+import Navigation from '../components/Navigation.astro';
 ---
 
 <Layout title="Login">
-  <AuthForm type="login" />
+  <Navigation className="absolute top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm" />
+  <main class="min-h-screen flex">
+    <!-- Form Section -->
+    <div class="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-16 pt-24">
+      <div class="w-full max-w-md">
+        <div class="text-center mb-8">
+          <h1 class="text-3xl font-bold mb-2">Welcome back!</h1>
+          <p class="text-gray-600">We're glad to see you again</p>
+        </div>
+        <AuthForm type="login" />
+      </div>
+    </div>
+
+    <!-- Visual Section -->
+    <div class="hidden lg:block lg:w-1/2 bg-gradient-to-br from-primary to-secondary relative overflow-hidden">
+      <div class="absolute inset-0 bg-black/10"></div>
+      <div class="absolute inset-0 flex items-center justify-center p-16">
+        <div class="text-white text-center">
+          <h2 class="text-4xl font-bold mb-4">Build Something Amazing</h2>
+          <p class="text-lg opacity-90">Join thousands of developers who trust our platform</p>
+        </div>
+      </div>
+      <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/20 to-transparent"></div>
+    </div>
+  </main>
 </Layout>
