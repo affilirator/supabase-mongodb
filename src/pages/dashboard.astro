@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { supabase } from '../lib/supabase';
+
+const { cookies, redirect } = Astro;
+
+const accessToken = cookies.get('sb-access-token');
+const redirectToLogin = () => {
+  return Astro.redirect('/login');
+};
+
+if (!accessToken) {
+  return redirectToLogin();
+}
+
+const { data: { user }, error } = await supabase.auth.getUser(accessToken.value);
+
+if (error || !user) {
+  return redirectToLogin();
+}
+---
+
+<Layout title="Dashboard">
+  <div class="min-h-screen bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10">
+    <div class="max-w-4xl mx-auto p-6">
+      <div class="bg-white rounded-lg shadow-xl p-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Welcome to your Dashboard</h1>
+        <p class="text-gray-600">You are logged in as: {user.email}</p>
+        <button
+          id="logoutBtn"
+          class="mt-6 bg-red-500 text-white rounded-md py-2 px-4 hover:bg-red-600 transition duration-200"
+        >
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const logoutBtn = document.getElementById('logoutBtn');
+  
+  logoutBtn?.addEventListener('click', async () => {
+    try {
+      const response = await fetch('/api/logout', {
+        method: 'POST',
+      });
+
+      if (response.ok) {
+        window.location.href = '/login';
+      }
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  });
+</script>

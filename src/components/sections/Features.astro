@@ -1,0 +1,41 @@
+---
+const features = [
+  {
+    title: "Supabase Authentication",
+    description: "Secure user authentication powered by Supabase, handling login, registration, and session management.",
+    icon: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z",
+    color: "FF5C35"
+  },
+  {
+    title: "MongoDB Storage",
+    description: "Efficient user data management with MongoDB, storing profiles and application-specific information.",
+    icon: "M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4",
+    color: "D74697"
+  },
+  {
+    title: "SSR Protection",
+    description: "Server-side rendering with built-in route protection, ensuring secure access to protected content.",
+    icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
+    color: "7DE261"
+  }
+];
+---
+
+<section id="features" class="py-16 sm:py-24">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12">How It Works</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      {features.map(feature => (
+        <div class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
+          <div class={`w-12 h-12 bg-[#${feature.color}]/10 rounded-lg flex items-center justify-center mb-4`}>
+            <svg class={`w-6 h-6 text-[#${feature.color}]`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={feature.icon}/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">{feature.title}</h3>
+          <p class="text-gray-600">{feature.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
